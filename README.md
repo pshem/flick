@@ -27,6 +27,7 @@ If the output is not a single number, analyze the output of:
 ```
 
 The most probable cause of your problems is a 3 element touchscreen name. To fix it, simply change 5 to 6 inside ` awk '{print $5}' ` 
+
 Another probable cause of failure is a touchscreen, whose name doesn't include the word "touchscreen". To fix it, check how your touch device is called and change line 7 behind the '=' sign to your touchscreen's name. Make sure to leave no spaces in between or variable assignment will fail.
 
 Yet another reason for the program's failure is running a display server other than X.org. If you are using Fedora 25+, or Ubuntu 16.10 with the Unity 8 desktop, this is the case.
