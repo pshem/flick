@@ -6,10 +6,15 @@ To use:
 2. move to your preferred directory,
 3. chmod +x flick.sh
 
+
 If it doesn't work, run line 9 from xinput onwards:
+
 ~$ xinput | grep -i "$touchscreenName" | awk '{print $5}' | cut -d= -f2
+
 and check what the output is. If it's not a number analyze the output of:
+
 ~$ xinput list
+
 
 The most probable cause of your problems is a 3 element touchscreen name. To fix it, simply change 5 to 6 inside
 awk '{print $5}'
