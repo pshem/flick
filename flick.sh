@@ -3,20 +3,27 @@
 #strict mode
 set -euo pipefail
 
-# How is the touchscreen called?
-touchscreenName=Touchscreen
+#Check if an argument has been passed to the script
+if [ -n "${1:+1}" ];
+then
+	deviceName=$1
+else	#otherwise, default to Touchscreen
+	deviceName=Touchscreen
+fi
+echo $deviceName
 
-touchscreenNumber=$(xinput | grep -i "$touchscreenName" | awk '{print $5}' | cut -d= -f2)
+#What is the number of the device?
+deviceNumber=$(xinput | grep -i "$deviceName" | awk 'BEGIN { FS = "=" } ; { print $2 }' | awk '{ print $1 }')
 
-#check status
-if [[ $(xinput list-props "$touchscreenNumber" |  grep -i 'Device Enabled' |  awk '{print $4}') == '1' ]]
+#Check device status
+if [[ $(xinput list-props "$deviceNumber" |  grep -i 'Device Enabled' |  awk '{print $4}') == '1' ]]
 #if enabled, disable
 then
-	xinput disable "$touchscreenNumber"
-	echo "Touchscreen turned off!"
+	xinput disable "$deviceNumber"
+	echo "$deviceName turned off!"
 #if disabled, enable
 else
-	xinput enable "$touchscreenNumber"
-	echo "Touchscreen turned on!"
+	xinput enable "$deviceNumber"
+	echo "$deviceName turned on!"
 fi
 exit
