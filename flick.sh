@@ -4,11 +4,15 @@
 set -euo pipefail
 
 #Check if an argument has been passed to the script
-if [ -n "${1:+1}" ];
+if [ $# -eq 1 ];
 then
 	deviceName=$1
-else	#otherwise, default to Touchscreen
+elif [ $# -eq 0 ]; #with no argumnets, default to Touchscreen
+then
 	deviceName=Touchscreen
+else
+	echo "Invalid number of arguments. Flick expects up to 1 device name. If your device name contains a space, quote it"
+	exit 1;
 fi
 echo $deviceName
 
